@@ -290,6 +290,23 @@ section{padding:82px 8%}
     border-radius:6px;
 }
 
+/* Estilos de la Galería TikTok */
+.tiktok-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    justify-items: center;
+}
+.tiktok-item {
+    width: 100%;
+    max-width: 380px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(77,20,42,0.08);
+    border: 1px solid rgba(255,92,137,0.2);
+}
+
 .cta-band{
     display:grid;
     grid-template-columns:1fr auto;
@@ -415,6 +432,7 @@ footer a{font-weight:800}
         <li><a href="#logos">Nuestros Logos</a></li>
         <li><a href="#tarjetas">Tarjetas</a></li>
         <li><a href="#volantes">Volantes</a></li>
+        <li><a href="#tiktok">Videos TikTok</a></li>
         <li><a href="#contacto">Contacto</a></li>
         <li><a href="solicitar.html">Solicitar Diseño</a></li>
         <li><a class="admin-link" href="admin.html">Panel Admin</a></li>
@@ -522,6 +540,42 @@ footer a{font-weight:800}
             <p class="section-subtitle">Volantes publicitarios creados para comunicar promociones, servicios y eventos.</p>
         </div>
         <div class="gallery" id="flyersGallery"></div>
+    </section>
+
+    <!-- SECCIÓN DE VIDEOS DE TIKTOK -->
+    <section class="soft-section" id="tiktok">
+        <div class="section-head">
+            <p class="section-kicker">Contenido Audiovisual</p>
+            <h2 class="section-title">Nuestros Videos en TikTok</h2>
+            <p class="section-subtitle">Echa un vistazo a nuestros proyectos, animaciones y contenido publicitario publicado en TikTok.</p>
+        </div>
+        <div class="tiktok-gallery">
+            <div class="tiktok-item">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@dise.log0/video/7674745419041131796" data-video-id="7674745419041131796" style="max-width: 605px;min-width: 325px;">
+                    <section><a target="_blank" title="@dise.log0" href="https://www.tiktok.com/@dise.log0?refer=embed">@dise.log0</a></section>
+                </blockquote>
+            </div>
+            <div class="tiktok-item">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@dise.log0/video/7674757034796977429" data-video-id="7674757034796977429" style="max-width: 605px;min-width: 325px;">
+                    <section><a target="_blank" title="@dise.log0" href="https://www.tiktok.com/@dise.log0?refer=embed">@dise.log0</a></section>
+                </blockquote>
+            </div>
+            <div class="tiktok-item">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@dise.log0/video/7674755027038145812" data-video-id="7674755027038145812" style="max-width: 605px;min-width: 325px;">
+                    <section><a target="_blank" title="@dise.log0" href="https://www.tiktok.com/@dise.log0?refer=embed">@dise.log0</a></section>
+                </blockquote>
+            </div>
+            <div class="tiktok-item">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@dise.log0/video/7674749204211698964" data-video-id="7674749204211698964" style="max-width: 605px;min-width: 325px;">
+                    <section><a target="_blank" title="@dise.log0" href="https://www.tiktok.com/@dise.log0?refer=embed">@dise.log0</a></section>
+                </blockquote>
+            </div>
+            <div class="tiktok-item">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@dise.log0/video/7674747720875134228" data-video-id="7674747720875134228" style="max-width: 605px;min-width: 325px;">
+                    <section><a target="_blank" title="@dise.log0" href="https://www.tiktok.com/@dise.log0?refer=embed">@dise.log0</a></section>
+                </blockquote>
+            </div>
+        </div>
     </section>
 
     <section class="white-section" id="estadisticas">
@@ -750,5 +804,8 @@ renderGallery("logosGallery", logoItems, "logos");
 renderGallery("cardsGallery", cardItems, "cards");
 renderGallery("flyersGallery", flyerItems, "flyers");
 </script>
+
+<!-- Script oficial de TikTok para procesar los embeds -->
+<script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
