@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dise.Log | Diseño y Marketing</title>
+<link rel="icon" type="image/jpeg" href="assets/logo de la pagina web.jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+    --primary:#FF5C89;
+    --primary-dark:#df416f;
+    --primary-soft:#ffe2ea;
+    --page-bg:#FDA8BF;
+    --dark:#172033;
+    --gray:#667085;
+    --muted:#f8f2f5;
+    --white:#ffffff;
+    --blue:#185fa5;
+    --shadow:0 18px 48px rgba(77,20,42,.14);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(180deg,var(--page-bg) 0%,#fff7fa 42%,#ffffff 100%);
+    color:var(--dark);
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:22px;
+    padding:16px 8%;
+    background:rgba(255,255,255,.9);
+    border-bottom:1px solid rgba(255,92,137,.22);
+    box-shadow:0 10px 30px rgba(77,20,42,.08);
+    backdrop-filter:blur(16px);
+}
+.brand{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:26px;
+    font-weight:800;
+    color:var(--primary);
+    letter-spacing:0;
+    white-space:nowrap;
+}
+.brand img{width:40px;height:40px;border-radius:8px;display:block;object-fit:cover}
+.brand span{color:var(--dark)}
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    list-style:none;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+.nav-links a{
+    font-size:14px;
+    font-weight:700;
+    color:#333b4c;
+    transition:color .2s ease, transform .2s ease;
+}
+.nav-links a:hover{color:var(--primary);transform:translateY(-1px)}
+.nav-links .admin-link{
+    color:#fff;
+    background:var(--dark);
+    padding:10px 14px;
+    border-radius:8px;
+}
+.nav-links .admin-link:hover{color:#fff;background:var(--primary)}
+
+.hero{
+    min-height:78vh;
+    display:grid;
+    place-items:center;
+    padding:72px 8% 58px;
+}
+.hero-inner{
+    width:100%;
+    max-width:1180px;
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
+    gap:38px;
+    align-items:center;
+}
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:18px;
+    padding:8px 12px;
+    border:1px solid rgba(255,92,137,.35);
+    border-radius:999px;
+    background:rgba(255,255,255,.72);
+    color:#7b2944;
+    font-size:13px;
+    font-weight:800;
+}
+.hero h1{
+    max-width:760px;
+    font-size:clamp(2.55rem,6vw,5.25rem);
+    line-height:.98;
+    letter-spacing:0;
+    margin-bottom:22px;
+}
+.hero p{
+    max-width:650px;
+    color:#3b4050;
+    font-size:1.1rem;
+    line-height:1.7;
+    margin-bottom:32px;
+}
+.hero-actions,.section-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:0 22px;
+    border-radius:8px;
+    border:1px solid transparent;
+    font-weight:800;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(77,20,42,.16)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-secondary{background:#fff;color:var(--primary);border-color:rgba(255,92,137,.45)}
+.btn-dark{background:var(--dark);color:#fff}
+
+.hero-showcase{
+    display:grid;
+    gap:16px;
+}
+.showcase-card{
+    background:rgba(255,255,255,.78);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:8px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
+.showcase-card strong{
+    display:block;
+    font-size:42px;
+    color:var(--primary);
+    margin-bottom:6px;
+}
+.showcase-card p{margin:0;font-size:14px;color:var(--gray)}
+.showcase-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+section{padding:82px 8%}
+.section-head{
+    max-width:780px;
+    margin:0 auto 38px;
+    text-align:center;
+}
+.section-kicker{
+    color:var(--primary);
+    font-size:13px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:10px;
+}
+.section-title{
+    font-size:clamp(2rem,4vw,3.15rem);
+    line-height:1.08;
+    margin-bottom:14px;
+}
+.section-subtitle{
+    color:var(--gray);
+    line-height:1.7;
+}
+.soft-section{background:rgba(255,255,255,.58)}
+.white-section{background:#fff}
+.highlight-section{
+    background:linear-gradient(135deg,#fff 0%,var(--primary-soft) 100%);
+}
+
+.cards,.plans,.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+.service-card,.plan,.stat,.gallery-card,.empty-slot,.contact-card{
+    background:rgba(255,255,255,.92);
+    border:1px solid rgba(255,92,137,.18);
+    border-radius:8px;
+    box-shadow:0 14px 38px rgba(77,20,42,.10);
+}
+.service-card,.plan,.stat{
+    padding:26px;
+    transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+}
+.service-card:hover,.plan:hover,.stat:hover{
+    transform:translateY(-5px);
+    border-color:rgba(255,92,137,.42);
+    box-shadow:0 22px 46px rgba(77,20,42,.15);
+}
+.service-card h3,.plan h3{font-size:1.16rem;margin-bottom:12px}
+.service-card p,.plan li,.stat p{color:var(--gray);line-height:1.65}
+.plan{border-top:5px solid var(--primary)}
+.plan.featured{background:#fff7fa;border-top-color:var(--primary)}
+.plan ul{list-style:none;display:grid;gap:10px}
+.plan li::before{content:"";display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:50%;background:var(--primary)}
+.stat{text-align:center}
+.stat h2{font-size:2.5rem;color:var(--primary);margin-bottom:6px}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
+}
+.gallery-card{
+    overflow:hidden;
+    min-height:245px;
+    transition:transform .25s ease, box-shadow .25s ease;
+}
+.gallery-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 24px 54px rgba(77,20,42,.16);
+}
+.gallery-button{
+    width:100%;
+    height:100%;
+    padding:0;
+    border:0;
+    background:#fff;
+    text-align:left;
+}
+.gallery-media{
+    aspect-ratio:4/3;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--primary-soft),#fff);
+}
+.gallery-media img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    transition:transform .35s ease;
+}
+.gallery-media.is-pair{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--primary-soft);
+}
+.gallery-media.is-pair img{
+    min-width:0;
+}
+.gallery-card:hover img{transform:scale(1.06)}
+.gallery-info{padding:16px}
+.gallery-info h3{font-size:1rem;margin-bottom:5px}
+.gallery-info p{font-size:13px;color:var(--gray)}
+.empty-slot{
+    min-height:245px;
+    padding:22px;
+    display:grid;
+    align-content:center;
+    border-style:dashed;
+    background:rgba(255,255,255,.62);
+}
+.empty-slot h3{margin-bottom:8px;color:var(--primary)}
+.empty-slot p{color:var(--gray);line-height:1.6;font-size:14px}
+.empty-slot code{
+    display:inline-block;
+    margin-top:10px;
+    color:var(--dark);
+    background:#fff;
+    padding:4px 7px;
+    border-radius:6px;
+}
+
+.cta-band{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:22px;
+    max-width:1120px;
+    margin:0 auto;
+    padding:32px;
+    background:var(--dark);
+    color:#fff;
+    border-radius:8px;
+    box-shadow:var(--shadow);
+}
+.cta-band p{color:#d8deea;line-height:1.6;margin-top:8px}
+
+.contact-card{
+    max-width:820px;
+    margin:0 auto;
+    padding:34px;
+    text-align:center;
+}
+.contact-card h2{margin-bottom:18px}
+.contact-list{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    color:#3b4050;
+}
+
+footer{
+    padding:30px 8%;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+footer a{font-weight:800}
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:rgba(23,32,51,.72);
+}
+.modal.open{display:flex}
+.modal-content{
+    position:relative;
+    width:min(980px,100%);
+    background:#fff;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.modal-images{
+    display:grid;
+    gap:1px;
+    background:#fff7fa;
+}
+.modal-images.is-pair{
+    grid-template-columns:1fr 1fr;
+}
+.modal-content img{
+    width:100%;
+    max-height:78vh;
+    display:block;
+    object-fit:contain;
+    background:#fff7fa;
+}
+.modal-caption{
+    padding:16px 18px;
+    font-weight:800;
+}
+.modal-close{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:8px;
+    background:rgba(23,32,51,.9);
+    color:#fff;
+    font-size:24px;
+    line-height:1;
+}
+
+@media(max-width:980px){
+    .topbar{align-items:flex-start;flex-direction:column}
+    .nav-links{justify-content:flex-start}
+    .hero-inner{grid-template-columns:1fr}
+    .cta-band{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+    .topbar,section,.hero,footer{padding-left:18px;padding-right:18px}
+    .nav-links{gap:12px}
+    .nav-links a{font-size:13px}
+    .hero{padding-top:46px}
+    .hero-actions,.section-actions{display:grid;grid-template-columns:1fr;width:100%}
+    .btn{width:100%}
+    .showcase-grid{grid-template-columns:1fr}
+    .gallery{grid-template-columns:1fr}
+    .modal-images.is-pair{grid-template-columns:1fr}
+    .cta-band{padding:24px}
+    .contact-list{display:grid}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" href="#inicio"><img src="assets/logo de la pagina web.jpeg" alt="" aria-hidden="true">DISE<span>.LOG</span></a>
+    <nav aria-label="Navegación principal">
+    <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#logos">Nuestros Logos</a></li>
+        <li><a href="#tarjetas">Tarjetas</a></li>
+        <li><a href="#volantes">Volantes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="solicitar.html">Solicitar Diseño</a></li>
+        <li><a class="admin-link" href="admin.html">Panel Admin</a></li>
+    </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" id="inicio">
+        <div class="hero-inner">
+            <div>
+                <span class="eyebrow">Branding profesional para marcas que empiezan y crecen</span>
+                <h1>Diseñamos tu imagen con una estética clara, moderna y memorable.</h1>
+                <p>Dise.Log crea logos, piezas para redes, tarjetas de presentación y material visual para emprendedores, negocios y proyectos personales.</p>
+                <div class="hero-actions">
+                    <a href="solicitar.html" class="btn btn-primary">Solicitar Diseño</a>
+                    <a href="admin.html" class="btn btn-dark">Panel Admin</a>
+                </div>
+            </div>
+            <div class="hero-showcase" aria-label="Resumen de servicios">
+                <div class="showcase-card">
+                    <strong>Dise.Log</strong>
+                    <p>Identidad visual, marketing y piezas gráficas para una presencia profesional.</p>
+                </div>
+                <div class="showcase-grid">
+                    <div class="showcase-card">
+                        <strong>6</strong>
+                        <p>Diseños listos para tarjetas de presentación.</p>
+                    </div>
+                    <div class="showcase-card">
+                        <strong>11</strong>
+                        <p>Logos existentes organizados en galeria.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="white-section" id="servicios">
+        <div class="section-head">
+            <p class="section-kicker">Servicios</p>
+            <h2 class="section-title">Soluciones visuales para vender mejor</h2>
+            <p class="section-subtitle">Cada pieza está pensada para verse limpia, confiable y coherente con tu marca.</p>
+        </div>
+        <div class="cards">
+            <article class="service-card">
+                <h3>Diseño de logotipos</h3>
+                <p>Identidad visual personalizada, adaptable para redes, documentos y publicidad.</p>
+            </article>
+            <article class="service-card">
+                <h3>Contenido para redes</h3>
+                <p>Publicaciones para Instagram, Facebook y TikTok con una línea gráfica consistente.</p>
+            </article>
+            <article class="service-card">
+                <h3>Volantes publicitarios</h3>
+                <p>Piezas gráficas para presentar ofertas, productos o servicios con claridad.</p>
+            </article>
+            <article class="service-card">
+                <h3>Tarjetas de presentación</h3>
+                <p>Diseños listos para imprimir y compartir contactos de forma profesional.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="soft-section" id="planes">
+        <div class="section-head">
+            <p class="section-kicker">Planes</p>
+            <h2 class="section-title">Servicio profesional para tu marca</h2>
+        </div>
+        <div class="plans">
+            <article class="plan featured">
+                <h3>Plan Profesional</h3>
+                <ul>
+                    <li>Logo profesional personalizado</li>
+                    <li>Publicaciones para redes sociales</li>
+                    <li>Tarjetas de presentación</li>
+                    <li>Asesoría visual para tu marca</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <section class="white-section" id="logos">
+        <div class="section-head">
+            <p class="section-kicker">Portafolio</p>
+            <h2 class="section-title">Nuestros Logos</h2>
+            <p class="section-subtitle">Logos creados para marcas, emprendimientos y proyectos personales.</p>
+        </div>
+        <div class="gallery" id="logosGallery"></div>
+    </section>
+
+    <section class="highlight-section" id="tarjetas">
+        <div class="section-head">
+            <p class="section-kicker">Impresos</p>
+            <h2 class="section-title">Tarjetas de Presentación</h2>
+            <p class="section-subtitle">Diseños de tarjetas de presentación listos para mostrar frente, reverso y detalles visuales.</p>
+        </div>
+        <div class="gallery" id="cardsGallery"></div>
+    </section>
+
+    <section class="white-section" id="volantes">
+        <div class="section-head">
+            <p class="section-kicker">Publicidad</p>
+            <h2 class="section-title">Volantes Publicitarios</h2>
+            <p class="section-subtitle">Volantes publicitarios creados para comunicar promociones, servicios y eventos.</p>
+        </div>
+        <div class="gallery" id="flyersGallery"></div>
+    </section>
+
+    <section class="white-section" id="estadisticas">
+        <div class="section-head">
+            <p class="section-kicker">Resultados</p>
+            <h2 class="section-title">Datos que respaldan el servicio</h2>
+        </div>
+        <div class="stats">
+            <article class="stat"><h2>95%</h2><p>Considera atractivo el servicio.</p></article>
+            <article class="stat"><h2>85%</h2><p>Prefiere contratar mediante una web.</p></article>
+            <article class="stat"><h2>67.5%</h2><p>Promocionaría en TikTok.</p></article>
+            <article class="stat"><h2>92.5%</h2><p>Valora diseños personalizados.</p></article>
+        </div>
+    </section>
+
+    <section class="soft-section">
+        <div class="cta-band">
+            <div>
+                <h2>¿Listo para solicitar tu diseño?</h2>
+                <p>El formulario guarda las solicitudes en el navegador para que puedas revisarlas desde el panel administrativo.</p>
+            </div>
+            <div class="section-actions">
+                <a href="solicitar.html" class="btn btn-primary">Solicitar Diseño</a>
+                <a href="admin.html" class="btn btn-secondary">Panel Admin</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="white-section" id="contacto">
+        <div class="contact-card">
+            <h2>Contáctanos</h2>
+            <div class="contact-list">
+                <span>WhatsApp: 099 297 2251</span>
+                <span>Instagram: @dise.log26</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>2026 DISE.LOG | Todos los derechos reservados</p>
+    <a href="#inicio">Volver arriba</a>
+</footer>
+
+<div class="modal" id="previewModal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-label="Vista previa">
+        <button class="modal-close" type="button" id="modalClose" aria-label="Cerrar">&times;</button>
+        <div class="modal-images" id="modalImages">
+            <img id="modalImage" src="" alt="">
+        </div>
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+</div>
+
+<script>
+const imageExtensions = ["jpeg", "jpg", "png", "webp"];
+
+const logoItems = Array.from({length:11}, (_, index) => {
+    const number = index + 1;
+    return {
+        candidates: imageExtensions.map((ext) => `assets/portfolio/logo${number}.${ext}`),
+        title: `Logo realizado ${number}`
+    };
+});
+
+const cardItems = [
+    {
+        front:"assets/tarjetas/frentetarjeta uno.jpeg",
+        back:"assets/tarjetas/partesdeatrasuno.jpeg",
+        title:"Tarjeta de presentación 1"
+    },
+    {
+        front:"assets/tarjetas/frentetarjetados.jpeg",
+        back:"assets/tarjetas/partedeatrastarjetados.jpeg",
+        title:"Tarjeta de presentación 2"
+    },
+    {
+        front:"assets/tarjetas/tarjetasdepresentacion1.jpeg",
+        title:"Tarjeta de presentación 3"
+    },
+    {
+        front:"assets/tarjetas/tarjetaspresentacion2.jpeg",
+        title:"Tarjeta de presentación 4"
+    },
+    {
+        front:"assets/tarjetas/tarjetasdepresentacion3.jpeg",
+        title:"Tarjeta de presentación 5"
+    },
+    {
+        front:"assets/tarjetas/tarjetaspresentacion4.jpeg",
+        title:"Tarjeta de presentación 6"
+    }
+];
+
+const flyerItems = [
+    {
+        front:"assets/volantes publicitarios/tarj.jpeg",
+        title:"Volante publicitario 1"
+    },
+    {
+        front:"assets/volantes publicitarios/WhatsApp Image 2026-06-28 at 23.10.48 (1).jpeg",
+        title:"Volante publicitario 2"
+    },
+    {
+        front:"assets/volantes publicitarios/WhatsApp Image 2026-06-28 at 23.11.41.jpeg",
+        title:"Volante publicitario 3"
+    },
+    {
+        front:"assets/volantes publicitarios/WhatsApp Image 2026-06-28 at 23.12.43.jpeg",
+        title:"Volante publicitario 4"
+    }
+];
+
+const modal = document.getElementById("previewModal");
+const modalImages = document.getElementById("modalImages");
+const modalImage = document.getElementById("modalImage");
+const modalCaption = document.getElementById("modalCaption");
+
+function openModal(item){
+    modalImages.classList.toggle("is-pair", Boolean(item.back));
+    modalImages.innerHTML = "";
+
+    const images = item.back
+        ? [{src:item.front, label:`${item.title} - Frente`}, {src:item.back, label:`${item.title} - Reverso`}]
+        : [{src:item.src || item.front, label:item.title}];
+
+    images.forEach((image) => {
+        const img = document.createElement("img");
+        img.src = image.src;
+        img.alt = image.label;
+        modalImages.appendChild(img);
+    });
+
+    modalCaption.textContent = item.back ? `${item.title} | Frente y reverso` : item.title;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+}
+
+function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    modalImages.classList.remove("is-pair");
+    modalImages.innerHTML = `<img id="modalImage" src="" alt="">`;
+}
+
+function applyImageFallback(img, candidates, onMissing){
+    let index = 0;
+    img.src = candidates[index];
+    img.addEventListener("error", () => {
+        index += 1;
+        if(index < candidates.length){
+            img.src = candidates[index];
+            return;
+        }
+        onMissing();
+    });
+}
+
+function renderGallery(containerId, items, type){
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+
+    items.forEach((item) => {
+        const article = document.createElement("article");
+        article.className = "gallery-card";
+
+        const button = document.createElement("button");
+        button.className = "gallery-button";
+        button.type = "button";
+
+        const media = document.createElement("div");
+        media.className = "gallery-media";
+
+        const front = document.createElement("img");
+        front.alt = item.back ? `${item.title} - Frente` : item.title;
+        front.loading = "lazy";
+
+        const removeOrEmpty = () => {
+            if(type === "cards"){
+                article.className = "empty-slot";
+                article.innerHTML = `<h3>Espacio preparado</h3><p>Coloca tu imagen en esta ruta para activarla automáticamente.</p><code>assets/tarjetas/${item.empty}</code>`;
+            }else{
+                article.remove();
+            }
+        };
+
+        if(type === "logos"){
+            applyImageFallback(front, item.candidates, removeOrEmpty);
+        }else{
+            front.src = item.front;
+            front.addEventListener("error", removeOrEmpty, {once:true});
+        }
+
+        media.appendChild(front);
+
+        if(item.back){
+            media.classList.add("is-pair");
+            const back = document.createElement("img");
+            back.src = item.back;
+            back.alt = `${item.title} - Reverso`;
+            back.loading = "lazy";
+            back.addEventListener("error", () => back.remove(), {once:true});
+            media.appendChild(back);
+        }
+
+        button.addEventListener("click", () => openModal({
+            ...item,
+            src: front.currentSrc || front.src
+        }));
+        button.appendChild(media);
+        button.insertAdjacentHTML("beforeend", `<div class="gallery-info"><h3>${item.title}</h3><p>${item.back ? "Frente y reverso" : "Click para ampliar"}</p></div>`);
+        article.appendChild(button);
+        container.appendChild(article);
+    });
+}
+
+document.getElementById("modalClose").addEventListener("click", closeModal);
+modal.addEventListener("click", (event) => {
+    if(event.target === modal) closeModal();
+});
+document.addEventListener("keydown", (event) => {
+    if(event.key === "Escape") closeModal();
+});
+
+renderGallery("logosGallery", logoItems, "logos");
+renderGallery("cardsGallery", cardItems, "cards");
+renderGallery("flyersGallery", flyerItems, "flyers");
+</script>
+</body>
+</html>
