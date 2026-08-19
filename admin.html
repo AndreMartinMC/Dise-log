@@ -118,30 +118,32 @@ button,input,select{font:inherit}
     border-radius:50%;
 }
 
-/* Grid de métricas limpio y adaptable */
+/* Grid adaptable para todas las métricas de la web */
 .stats-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
-    gap:16px;
+    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap:14px;
     margin-bottom:32px;
 }
 .stat-card{
     background:#fff;
     border:1px solid rgba(255,92,137,.2);
     border-radius:12px;
-    padding:20px 16px;
+    padding:18px 14px;
     box-shadow:0 8px 20px rgba(77,20,42,.06);
 }
 .stat-card .val{
-    font-size:1.8rem;
+    font-size:1.7rem;
     font-weight:800;
     color:var(--primary);
     margin-bottom:4px;
 }
 .stat-card .lbl{
-    font-size:12px;
-    font-weight:600;
+    font-size:11px;
+    font-weight:700;
     color:var(--gray);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
 }
 
 .content-box{
@@ -250,7 +252,7 @@ td{
         <div class="live-badge"><span></span> Actualizando en vivo</div>
     </div>
 
-    <!-- TARJETAS DE MÉTRICAS -->
+    <!-- TARJETAS DE MÉTRICAS COMPLETAS -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="val" id="totalPedidos">0</div>
@@ -270,15 +272,19 @@ td{
         </div>
         <div class="stat-card">
             <div class="val" id="disenosLogo">0</div>
-            <div class="lbl">Diseños de Logo</div>
+            <div class="lbl">Logotipos</div>
         </div>
         <div class="stat-card">
             <div class="val" id="videosPromo">0</div>
-            <div class="lbl">Videos Promocionales</div>
+            <div class="lbl">Videos Promo</div>
+        </div>
+        <div class="stat-card">
+            <div class="val" id="tarjetasVolantes">0</div>
+            <div class="lbl">Tarjetas / Volantes</div>
         </div>
         <div class="stat-card">
             <div class="val" id="ingresos">$0</div>
-            <div class="lbl">Ingresos Estimados</div>
+            <div class="lbl">Ingresos Est.</div>
         </div>
     </div>
 
@@ -326,6 +332,7 @@ function cargarDatosDashboard() {
     let countEntregados = 0;
     let countLogos = 0;
     let countVideos = 0;
+    let countTarjetas = 0;
     let sumaIngresos = 0;
 
     tbody.innerHTML = "";
@@ -342,13 +349,20 @@ function cargarDatosDashboard() {
             const valorNum = parseFloat((p.presupuesto || "").replace(/[^0-9.]/g, "")) || 0;
             sumaIngresos += valorNum;
 
+            // Estados
             if (estado.includes("pendiente")) countPendientes++;
             else if (estado.includes("proceso")) countProceso++;
             else if (estado.includes("entregado")) countEntregados++;
             else countPendientes++;
 
-            if (servicio.includes("logo")) countLogos++;
-            if (servicio.includes("video")) countVideos++;
+            // Detección automática según lo que ofrece index.html
+            if (servicio.includes("logo")) {
+                countLogos++;
+            } else if (servicio.includes("video") || servicio.includes("promo") || servicio.includes("tiktok")) {
+                countVideos++;
+            } else if (servicio.includes("tarjeta") || servicio.includes("volante") || servicio.includes("flyer")) {
+                countTarjetas++;
+            }
 
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -363,12 +377,14 @@ function cargarDatosDashboard() {
         });
     }
 
+    // Actualización dinámica de elementos
     document.getElementById("totalPedidos").textContent = countTotal;
     document.getElementById("pendientes").textContent = countPendientes;
     document.getElementById("enProceso").textContent = countProceso;
     document.getElementById("entregados").textContent = countEntregados;
     document.getElementById("disenosLogo").textContent = countLogos;
     document.getElementById("videosPromo").textContent = countVideos;
+    document.getElementById("tarjetasVolantes").textContent = countTarjetas;
     document.getElementById("ingresos").textContent = `$${sumaIngresos}`;
 }
 
