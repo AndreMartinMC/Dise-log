@@ -14,7 +14,6 @@
     --page-bg:#FDA8BF;
     --dark:#172033;
     --gray:#667085;
-    --white:#ffffff;
     --shadow:0 10px 30px rgba(77,20,42,.08);
 }
 
@@ -35,7 +34,6 @@ button,input,select{font:inherit}
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
     padding:16px 8%;
     background:rgba(255,255,255,.9);
     border-bottom:1px solid rgba(255,92,137,.22);
@@ -53,19 +51,8 @@ button,input,select{font:inherit}
 .brand img{width:36px;height:36px;border-radius:8px;object-fit:cover}
 .brand span{color:var(--dark)}
 
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    list-style:none;
-}
-.nav-links a{
-    font-size:14px;
-    font-weight:700;
-    color:#333b4c;
-    transition:color .2s;
-}
-.nav-links a:hover{color:var(--primary)}
+.nav-links{display:flex;align-items:center;gap:16px;list-style:none}
+.nav-links a{font-size:14px;font-weight:700;color:#333b4c}
 .btn-logout{
     background:var(--primary);
     color:#fff;
@@ -76,11 +63,7 @@ button,input,select{font:inherit}
     cursor:pointer;
 }
 
-.main-container{
-    max-width:1200px;
-    margin:32px auto;
-    padding:0 24px;
-}
+.main-container{max-width:1200px;margin:32px auto;padding:0 24px}
 
 .page-header{
     display:flex;
@@ -90,33 +73,8 @@ button,input,select{font:inherit}
     flex-wrap:wrap;
     gap:12px;
 }
-.page-title h1{
-    font-size:2.2rem;
-    font-weight:800;
-    color:var(--dark);
-}
-.page-title p{
-    color:var(--gray);
-    font-size:14px;
-    margin-top:4px;
-}
-.live-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:#e6f4ea;
-    color:#137333;
-    padding:6px 12px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:700;
-}
-.live-badge span{
-    width:8px;
-    height:8px;
-    background:#1e8e3e;
-    border-radius:50%;
-}
+.page-title h1{font-size:2.2rem;font-weight:800;color:var(--dark)}
+.page-title p{color:var(--gray);font-size:14px;margin-top:4px}
 
 .stats-grid{
     display:grid;
@@ -131,17 +89,40 @@ button,input,select{font:inherit}
     padding:18px 14px;
     box-shadow:0 8px 20px rgba(77,20,42,.06);
 }
-.stat-card .val{
-    font-size:1.7rem;
+.stat-card .val{font-size:1.7rem;font-weight:800;color:var(--primary);margin-bottom:4px}
+.stat-card .lbl{font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase}
+
+.section-title{
+    font-size:1.4rem;
     font-weight:800;
-    color:var(--primary);
-    margin-bottom:4px;
+    margin:24px 0 16px;
+    color:var(--dark);
 }
-.stat-card .lbl{
-    font-size:11px;
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:20px;
+    margin-bottom:32px;
+}
+.video-card{
+    background:#fff;
+    border:1px solid rgba(255,92,137,.2);
+    border-radius:12px;
+    padding:16px;
+    box-shadow:0 8px 20px rgba(77,20,42,.06);
+}
+.video-card h3{
+    font-size:16px;
     font-weight:700;
-    color:var(--gray);
-    text-transform:uppercase;
+    margin-bottom:12px;
+}
+.video-card video{
+    width:100%;
+    border-radius:8px;
+    background:#000;
+    max-height:220px;
+    object-fit:cover;
 }
 
 .content-box{
@@ -169,54 +150,19 @@ button,input,select{font:inherit}
     min-width:240px;
     font-size:13px;
 }
-.actions-group{
-    display:flex;
-    gap:10px;
-}
-.btn-action{
-    padding:8px 14px;
-    border-radius:8px;
-    border:0;
-    font-weight:700;
-    font-size:13px;
-    cursor:pointer;
-}
-.btn-reset{background:var(--primary-soft);color:var(--primary)}
 
-.table-wrapper{
-    overflow-x:auto;
-    min-height:220px;
-}
-table{
-    width:100%;
-    border-collapse:collapse;
-    text-align:left;
-}
-th{
-    background:var(--primary);
-    color:#fff;
-    padding:12px 18px;
-    font-size:13px;
-    font-weight:700;
-}
-td{
-    padding:14px 18px;
-    border-bottom:1px solid #eee;
-    font-size:13px;
-}
+.table-wrapper{overflow-x:auto;min-height:220px}
+table{width:100%;border-collapse:collapse;text-align:left}
+th{background:var(--primary);color:#fff;padding:12px 18px;font-size:13px;font-weight:700}
+td{padding:14px 18px;border-bottom:1px solid #eee;font-size:13px}
 .status-pill{
     padding:4px 10px;
     border-radius:999px;
     font-size:11px;
     font-weight:700;
 }
-.status-entregado{background:#dcfce7;color:#15803d}
+.status-completado{background:#dcfce7;color:#15803d}
 .status-pendiente{background:#fef3c7;color:#d97706}
-
-@media(max-width:768px){
-    .stats-grid{grid-template-columns:repeat(2, 1fr);}
-    .filter-bar{flex-direction:column;align-items:stretch}
-}
 </style>
 </head>
 <body>
@@ -234,49 +180,68 @@ td{
     <div class="page-header">
         <div class="page-title">
             <h1>Panel Administrativo</h1>
-            <p>Proyectos del portafolio y solicitudes en tiempo real.</p>
+            <p>Monitoreo completo del portafolio publicado y solicitudes de clientes.</p>
         </div>
-        <div class="live-badge"><span></span> Sincronizado</div>
     </div>
 
-    <!-- TARJETAS CON DATOS REALES -->
+    <!-- TARJETAS DE MÉTRICAS -->
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="val" id="totalPedidos">0</div>
-            <div class="lbl">Proyectos Totales</div>
+            <div class="val" id="totalTrabajos">26</div>
+            <div class="lbl">Trabajos Totales</div>
         </div>
         <div class="stat-card">
-            <div class="val" id="pendientes">0</div>
-            <div class="lbl">Pendientes</div>
+            <div class="val" id="totalLogos">11</div>
+            <div class="lbl">Logotipos</div>
         </div>
         <div class="stat-card">
-            <div class="val" id="enProceso">0</div>
-            <div class="lbl">En Proceso</div>
+            <div class="val" id="totalTarjetas">6</div>
+            <div class="lbl">Tarjetas de Presentación</div>
         </div>
         <div class="stat-card">
-            <div class="val" id="entregados">0</div>
-            <div class="lbl">Entregados</div>
+            <div class="val" id="totalVolantes">4</div>
+            <div class="lbl">Volantes Publicitarios</div>
         </div>
         <div class="stat-card">
-            <div class="val" id="disenosLogo">0</div>
-            <div class="lbl">Diseños Logo</div>
+            <div class="val" id="totalVideos">5</div>
+            <div class="lbl">Videos / TikTok</div>
         </div>
         <div class="stat-card">
-            <div class="val" id="videosPromo">0</div>
-            <div class="lbl">Videos Promo</div>
-        </div>
-        <div class="stat-card">
-            <div class="val" id="ingresos">$0</div>
-            <div class="lbl">Ingresos Est.</div>
+            <div class="val" id="solicitudesNuevas">0</div>
+            <div class="lbl">Pedidos Entrantes</div>
         </div>
     </div>
 
+    <!-- REPRODUCTORES DE VIDEOS DEL PORTAFOLIO -->
+    <h2 class="section-title">📹 Videos del Portafolio Principal</h2>
+    <div class="video-grid">
+        <div class="video-card">
+            <h3>Filazero</h3>
+            <video controls src="assets/videos/filazero.mp4"></video>
+        </div>
+        <div class="video-card">
+            <h3>Check Alarms</h3>
+            <video controls src="assets/videos/check_alarms.mp4"></video>
+        </div>
+        <div class="video-card">
+            <h3>Ecotech</h3>
+            <video controls src="assets/videos/ecotech.mp4"></video>
+        </div>
+        <div class="video-card">
+            <h3>QReady</h3>
+            <video controls src="assets/videos/qready.mp4"></video>
+        </div>
+        <div class="video-card">
+            <h3>Dise.Log</h3>
+            <video controls src="assets/videos/diselog.mp4"></video>
+        </div>
+    </div>
+
+    <!-- TABLA DE CONTROL DE PEDIDOS -->
+    <h2 class="section-title">📋 Registro de Pedidos</h2>
     <div class="content-box">
         <div class="filter-bar">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar proyecto o cliente..." onkeyup="filtrarTabla()">
-            <div class="actions-group">
-                <button class="btn-action btn-reset" onclick="restablecerDatos()">Restablecer Portafolio</button>
-            </div>
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar cliente o servicio..." onkeyup="filtrarTabla()">
         </div>
 
         <div class="table-wrapper">
@@ -284,14 +249,14 @@ td{
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Cliente / Proyecto</th>
-                        <th>Servicio</th>
+                        <th>Cliente / Marca</th>
+                        <th>Servicio Solicitado</th>
                         <th>Presupuesto</th>
                         <th>Estado</th>
                         <th>Fecha</th>
                     </tr>
                 </thead>
-                <tbody id="pedidosTabla">
+                <tbody id="tablaPedidos">
                 </tbody>
             </table>
         </div>
@@ -299,85 +264,59 @@ td{
 </main>
 
 <script>
-// Proyectos ya realizados de la página principal
-const proyectosBase = [
-    { cliente: "Filazero", servicio: "Video Promocional", presupuesto: "$20", estado: "Entregado", fecha: "15/08/2026" },
-    { cliente: "Check Alarms", servicio: "Video Promocional", presupuesto: "$20", estado: "Entregado", fecha: "16/08/2026" },
-    { cliente: "Ecotech", servicio: "Video Promocional (Pack 2)", presupuesto: "$40", estado: "Entregado", fecha: "17/08/2026" },
-    { cliente: "QReady", servicio: "Video Promocional", presupuesto: "$20", estado: "Entregado", fecha: "18/08/2026" },
-    { cliente: "Dise.Log", servicio: "Diseño de Logo & Branding", presupuesto: "$20", estado: "Entregado", fecha: "19/08/2026" }
-];
+const PORTAFOLIO_BASE = { logos: 11, tarjetas: 6, volantes: 4, videos: 5 };
 
 function cargarDashboard() {
-    let solicitudesNuevas = JSON.parse(localStorage.getItem("diselog_pedidos") || "[]");
+    let solicitudes = JSON.parse(localStorage.getItem("diselog_pedidos") || "[]");
     
-    // Unir proyectos realizados con solicitudes de la web
-    let todosLosProyectos = [...proyectosBase, ...solicitudesNuevas];
+    let cLogos = PORTAFOLIO_BASE.logos;
+    let cTarjetas = PORTAFOLIO_BASE.tarjetas;
+    let cVolantes = PORTAFOLIO_BASE.volantes;
+    let cVideos = PORTAFOLIO_BASE.videos;
+    let cNuevos = solicitudes.length;
 
-    const tbody = document.getElementById("pedidosTabla");
-    tbody.innerHTML = "";
-
-    let total = todosLosProyectos.length;
-    let pendientes = 0;
-    let proceso = 0;
-    let entregados = 0;
-    let logos = 0;
-    let videos = 0;
-    let ingresos = 0;
-
-    todosLosProyectos.forEach((p, i) => {
-        const est = (p.estado || "Pendiente").toLowerCase();
+    solicitudes.forEach(p => {
         const serv = (p.servicio || "").toLowerCase();
-        const val = parseFloat((p.presupuesto || "").replace(/[^0-9.]/g, "")) || 0;
-
-        ingresos += val;
-
-        if (est.includes("entregado")) entregados++;
-        else if (est.includes("proceso")) proceso++;
-        else pendientes++;
-
-        if (serv.includes("logo") || serv.includes("branding")) logos++;
-        if (serv.includes("video")) videos++;
-
-        const isEntregado = est.includes("entregado");
-        const badgeClass = isEntregado ? "status-entregado" : "status-pendiente";
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td><strong>#${i + 1}</strong></td>
-            <td><strong>${p.cliente || p.nombre}</strong></td>
-            <td>${p.servicio}</td>
-            <td>${p.presupuesto}</td>
-            <td><span class="status-pill ${badgeClass}">${p.estado}</span></td>
-            <td>${p.fecha}</td>
-        `;
-        tbody.appendChild(tr);
+        if (serv.includes("logo")) cLogos++;
+        else if (serv.includes("tarjeta")) cTarjetas++;
+        else if (serv.includes("volante")) cVolantes++;
+        else if (serv.includes("video") || serv.includes("tiktok")) cVideos++;
     });
 
-    // Actualizar las métricas
-    document.getElementById("totalPedidos").textContent = total;
-    document.getElementById("pendientes").textContent = pendientes;
-    document.getElementById("enProceso").textContent = proceso;
-    document.getElementById("entregados").textContent = entregados;
-    document.getElementById("disenosLogo").textContent = logos;
-    document.getElementById("videosPromo").textContent = videos;
-    document.getElementById("ingresos").textContent = `$${ingresos}`;
+    document.getElementById("totalTrabajos").textContent = cLogos + cTarjetas + cVolantes + cVideos;
+    document.getElementById("totalLogos").textContent = cLogos;
+    document.getElementById("totalTarjetas").textContent = cTarjetas;
+    document.getElementById("totalVolantes").textContent = cVolantes;
+    document.getElementById("totalVideos").textContent = cVideos;
+    document.getElementById("solicitudesNuevas").textContent = cNuevos;
+
+    const tbody = document.getElementById("tablaPedidos");
+    tbody.innerHTML = "";
+
+    if (solicitudes.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#667085;padding:32px;">No hay solicitudes nuevas en espera. Los contadores reflejan los 26 trabajos publicados.</td></tr>`;
+    } else {
+        solicitudes.forEach((p, i) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>#${i + 1}</strong></td>
+                <td><strong>${p.cliente || p.nombre || 'Cliente'}</strong></td>
+                <td>${p.servicio || 'Diseño General'}</td>
+                <td>${p.presupuesto || '$10'}</td>
+                <td><span class="status-pill status-pendiente">${p.estado || 'Pendiente'}</span></td>
+                <td>${p.fecha || new Date().toLocaleDateString()}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
 }
 
 function filtrarTabla() {
-    const input = document.getElementById("searchInput").value.toLowerCase();
-    const filas = document.querySelectorAll("#pedidosTabla tr");
-    filas.forEach(fila => {
-        const texto = fila.textContent.toLowerCase();
-        fila.style.display = texto.includes(input) ? "" : "none";
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const filas = document.querySelectorAll("#tablaPedidos tr");
+    filas.forEach(f => {
+        f.style.display = f.textContent.toLowerCase().includes(query) ? "" : "none";
     });
-}
-
-function restablecerDatos() {
-    if (confirm("¿Quieres limpiar las pruebas y dejar solo los trabajos del portafolio?")) {
-        localStorage.removeItem("diselog_pedidos");
-        cargarDashboard();
-    }
 }
 
 document.addEventListener("DOMContentLoaded", cargarDashboard);
