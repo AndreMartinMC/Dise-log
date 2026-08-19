@@ -118,7 +118,6 @@ button,input,select{font:inherit}
     border-radius:50%;
 }
 
-/* Grid adaptable para todas las métricas de la web */
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
@@ -143,7 +142,6 @@ button,input,select{font:inherit}
     font-weight:700;
     color:var(--gray);
     text-transform:uppercase;
-    letter-spacing:0.5px;
 }
 
 .content-box{
@@ -183,7 +181,7 @@ button,input,select{font:inherit}
     font-size:13px;
     cursor:pointer;
 }
-.btn-clear{background:#fee2e2;color:#dc2626}
+.btn-reset{background:var(--primary-soft);color:var(--primary)}
 
 .table-wrapper{
     overflow-x:auto;
@@ -211,20 +209,9 @@ td{
     border-radius:999px;
     font-size:11px;
     font-weight:700;
-    background:#fef3c7;
-    color:#d97706;
 }
-
-.empty-state{
-    padding:48px 24px;
-    text-align:center;
-    color:var(--gray);
-}
-.empty-state span{
-    font-size:32px;
-    display:block;
-    margin-bottom:8px;
-}
+.status-entregado{background:#dcfce7;color:#15803d}
+.status-pendiente{background:#fef3c7;color:#d97706}
 
 @media(max-width:768px){
     .stats-grid{grid-template-columns:repeat(2, 1fr);}
@@ -247,16 +234,16 @@ td{
     <div class="page-header">
         <div class="page-title">
             <h1>Panel Administrativo</h1>
-            <p>Revisa y gestiona las solicitudes de Dise.Log en tiempo real.</p>
+            <p>Proyectos del portafolio y solicitudes en tiempo real.</p>
         </div>
-        <div class="live-badge"><span></span> Actualizando en vivo</div>
+        <div class="live-badge"><span></span> Sincronizado</div>
     </div>
 
-    <!-- TARJETAS DE MÉTRICAS COMPLETAS -->
+    <!-- TARJETAS CON DATOS REALES -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="val" id="totalPedidos">0</div>
-            <div class="lbl">Pedidos Totales</div>
+            <div class="lbl">Proyectos Totales</div>
         </div>
         <div class="stat-card">
             <div class="val" id="pendientes">0</div>
@@ -272,15 +259,11 @@ td{
         </div>
         <div class="stat-card">
             <div class="val" id="disenosLogo">0</div>
-            <div class="lbl">Logotipos</div>
+            <div class="lbl">Diseños Logo</div>
         </div>
         <div class="stat-card">
             <div class="val" id="videosPromo">0</div>
             <div class="lbl">Videos Promo</div>
-        </div>
-        <div class="stat-card">
-            <div class="val" id="tarjetasVolantes">0</div>
-            <div class="lbl">Tarjetas / Volantes</div>
         </div>
         <div class="stat-card">
             <div class="val" id="ingresos">$0</div>
@@ -290,9 +273,9 @@ td{
 
     <div class="content-box">
         <div class="filter-bar">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar cliente o servicio...">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar proyecto o cliente..." onkeyup="filtrarTabla()">
             <div class="actions-group">
-                <button class="btn-action btn-clear" onclick="limpiarRegistros()">Borrar Todo</button>
+                <button class="btn-action btn-reset" onclick="restablecerDatos()">Restablecer Portafolio</button>
             </div>
         </div>
 
@@ -301,7 +284,7 @@ td{
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Cliente</th>
+                        <th>Cliente / Proyecto</th>
                         <th>Servicio</th>
                         <th>Presupuesto</th>
                         <th>Estado</th>
@@ -311,92 +294,94 @@ td{
                 <tbody id="pedidosTabla">
                 </tbody>
             </table>
-            <div class="empty-state" id="emptyState" style="display:none;">
-                <span>📬</span>
-                <p>No hay pedidos registrados.</p>
-            </div>
         </div>
     </div>
 </main>
 
 <script>
-function cargarDatosDashboard() {
-    const pedidos = JSON.parse(localStorage.getItem("diselog_pedidos") || "[]");
+// Proyectos ya realizados de la página principal
+const proyectosBase = [
+    { cliente: "Filazero", servicio: "Video Promocional", presupuesto: "$20", estado: "Entregado", fecha: "15/08/2026" },
+    { cliente: "Check Alarms", servicio: "Video Promocional", presupuesto: "$20", estado: "Entregado", fecha: "16/08/2026" },
+    { cliente: "Ecotech", servicio: "Video Promocional (Pack 2)", presupuesto: "$40", estado: "Entregado", fecha: "17/08/2026" },
+    { cliente: "QReady", servicio: "Video Promocional", presupuesto: "$20", estado: "Entregado", fecha: "18/08/2026" },
+    { cliente: "Dise.Log", servicio: "Diseño de Logo & Branding", presupuesto: "$20", estado: "Entregado", fecha: "19/08/2026" }
+];
+
+function cargarDashboard() {
+    let solicitudesNuevas = JSON.parse(localStorage.getItem("diselog_pedidos") || "[]");
     
+    // Unir proyectos realizados con solicitudes de la web
+    let todosLosProyectos = [...proyectosBase, ...solicitudesNuevas];
+
     const tbody = document.getElementById("pedidosTabla");
-    const emptyState = document.getElementById("emptyState");
-
-    let countTotal = pedidos.length;
-    let countPendientes = 0;
-    let countProceso = 0;
-    let countEntregados = 0;
-    let countLogos = 0;
-    let countVideos = 0;
-    let countTarjetas = 0;
-    let sumaIngresos = 0;
-
     tbody.innerHTML = "";
 
-    if (countTotal === 0) {
-        emptyState.style.display = "block";
-    } else {
-        emptyState.style.display = "none";
+    let total = todosLosProyectos.length;
+    let pendientes = 0;
+    let proceso = 0;
+    let entregados = 0;
+    let logos = 0;
+    let videos = 0;
+    let ingresos = 0;
 
-        pedidos.forEach((p, i) => {
-            const estado = (p.estado || "Pendiente").toLowerCase();
-            const servicio = (p.servicio || "").toLowerCase();
-            
-            const valorNum = parseFloat((p.presupuesto || "").replace(/[^0-9.]/g, "")) || 0;
-            sumaIngresos += valorNum;
+    todosLosProyectos.forEach((p, i) => {
+        const est = (p.estado || "Pendiente").toLowerCase();
+        const serv = (p.servicio || "").toLowerCase();
+        const val = parseFloat((p.presupuesto || "").replace(/[^0-9.]/g, "")) || 0;
 
-            // Estados
-            if (estado.includes("pendiente")) countPendientes++;
-            else if (estado.includes("proceso")) countProceso++;
-            else if (estado.includes("entregado")) countEntregados++;
-            else countPendientes++;
+        ingresos += val;
 
-            // Detección automática según lo que ofrece index.html
-            if (servicio.includes("logo")) {
-                countLogos++;
-            } else if (servicio.includes("video") || servicio.includes("promo") || servicio.includes("tiktok")) {
-                countVideos++;
-            } else if (servicio.includes("tarjeta") || servicio.includes("volante") || servicio.includes("flyer")) {
-                countTarjetas++;
-            }
+        if (est.includes("entregado")) entregados++;
+        else if (est.includes("proceso")) proceso++;
+        else pendientes++;
 
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td><strong>#${i + 1}</strong></td>
-                <td>${p.nombre || p.cliente || 'Cliente'}</td>
-                <td>${p.servicio || 'Servicio General'}</td>
-                <td>${p.presupuesto || '$10'}</td>
-                <td><span class="status-pill">${p.estado || 'Pendiente'}</span></td>
-                <td>${p.fecha || new Date().toLocaleDateString()}</td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
+        if (serv.includes("logo") || serv.includes("branding")) logos++;
+        if (serv.includes("video")) videos++;
 
-    // Actualización dinámica de elementos
-    document.getElementById("totalPedidos").textContent = countTotal;
-    document.getElementById("pendientes").textContent = countPendientes;
-    document.getElementById("enProceso").textContent = countProceso;
-    document.getElementById("entregados").textContent = countEntregados;
-    document.getElementById("disenosLogo").textContent = countLogos;
-    document.getElementById("videosPromo").textContent = countVideos;
-    document.getElementById("tarjetasVolantes").textContent = countTarjetas;
-    document.getElementById("ingresos").textContent = `$${sumaIngresos}`;
+        const isEntregado = est.includes("entregado");
+        const badgeClass = isEntregado ? "status-entregado" : "status-pendiente";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><strong>#${i + 1}</strong></td>
+            <td><strong>${p.cliente || p.nombre}</strong></td>
+            <td>${p.servicio}</td>
+            <td>${p.presupuesto}</td>
+            <td><span class="status-pill ${badgeClass}">${p.estado}</span></td>
+            <td>${p.fecha}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Actualizar las métricas
+    document.getElementById("totalPedidos").textContent = total;
+    document.getElementById("pendientes").textContent = pendientes;
+    document.getElementById("enProceso").textContent = proceso;
+    document.getElementById("entregados").textContent = entregados;
+    document.getElementById("disenosLogo").textContent = logos;
+    document.getElementById("videosPromo").textContent = videos;
+    document.getElementById("ingresos").textContent = `$${ingresos}`;
 }
 
-function limpiarRegistros() {
-    if (confirm("¿Estás seguro de que quieres borrar todos los pedidos guardados?")) {
+function filtrarTabla() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const filas = document.querySelectorAll("#pedidosTabla tr");
+    filas.forEach(fila => {
+        const texto = fila.textContent.toLowerCase();
+        fila.style.display = texto.includes(input) ? "" : "none";
+    });
+}
+
+function restablecerDatos() {
+    if (confirm("¿Quieres limpiar las pruebas y dejar solo los trabajos del portafolio?")) {
         localStorage.removeItem("diselog_pedidos");
-        cargarDatosDashboard();
+        cargarDashboard();
     }
 }
 
-document.addEventListener("DOMContentLoaded", cargarDatosDashboard);
-window.addEventListener("storage", cargarDatosDashboard);
+document.addEventListener("DOMContentLoaded", cargarDashboard);
+window.addEventListener("storage", cargarDashboard);
 </script>
 
 </body>
